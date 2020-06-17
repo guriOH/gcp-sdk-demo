@@ -7,10 +7,13 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.cloudresourcemanager.CloudResourceManager;
+import com.google.api.services.cloudresourcemanager.CloudResourceManager.Projects;
+import com.google.api.services.cloudresourcemanager.model.ListProjectsResponse;
+import com.google.api.services.cloudresourcemanager.model.Project;
+import java.io.IOException;
+import java.util.List;
+
 public class ResourceManagerSdkClient {
-  private
-  java.io.File DATA_STORE_DIR =
-      new java.io.File(System.getProperty("user.home"), ".store/compute_engine_sample");
 
   private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
@@ -27,7 +30,6 @@ public class ResourceManagerSdkClient {
   public ResourceManagerSdkClient(Credential credential) {
     try {
       httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-      dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
     }catch (Exception e){
 
     }
@@ -35,6 +37,9 @@ public class ResourceManagerSdkClient {
         .setHttpRequestInitializer(credential).build();
   }
 
+  public List<Project> getProjects() throws IOException {
+    return resourceManager.projects().list().execute().getProjects();
+  }
 
 
 }

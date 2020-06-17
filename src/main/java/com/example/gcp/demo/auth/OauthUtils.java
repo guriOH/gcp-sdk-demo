@@ -1,4 +1,4 @@
-package com.example.gcp.demo.oauth;
+package com.example.gcp.demo.auth;
 
 import com.example.gcp.demo.ComputeEngineSample;
 import com.google.api.client.auth.oauth2.Credential;
@@ -34,10 +34,6 @@ public class OauthUtils {
   /** Global instance of the JSON factory. */
   private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-  /** OAuth 2.0 scopes */
-  private static final List<String> SCOPES = Arrays.asList(ComputeScopes.COMPUTE_READONLY);
-
-
   public OauthUtils() {
   }
 
@@ -63,7 +59,7 @@ public class OauthUtils {
 
     System.out.println(clientSecrets.getWeb().toString());
 
-    List<String> SCOPES = Arrays.asList(ComputeScopes.COMPUTE_READONLY);
+    List<String> SCOPES = Arrays.asList(GcpScopes.getAllScopes());
 
     // set up authorization code flow
     GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
